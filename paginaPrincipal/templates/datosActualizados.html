@@ -1,0 +1,24 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+
+    {% include 'head.html' %}
+
+    <body class="padre">
+        <div class="hijo">
+            <div class="alert alert-success" role="alert">
+                La información del paciente se ha guardado satisfactoriamente
+            </div>
+
+            <div>
+                <div class="row col-12 justify-content-center">
+                    <a class="btn btn-primary col-md-2" href="{% url 'home3' cod_pac %}" > Finalizar </a>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</html>

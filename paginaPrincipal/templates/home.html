@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+    {% include 'head.html' %}
+
+    <body class="padre">
+      <div class="row col-15 justify-content-end mb-2 pr-0">
+        <a class="btn btn-secondary col-md-1" href="{% url 'login' %}">Salir</a>
+      </div>
+      <div class ="hijo">
+        <h1 class="titulo"> Ingresaste, {{cod_doc}} </h1><br>
+
+        {% if cod_doc == 'admin' %}
+        
+          <div class="row col-12 justify-content-end mb-2 pr-0">
+            <a class="btn btn-secondary col-md-3">Descargar datos</a>
+          </div>
+          <!-- href="{% url 'descargar_excel' %}" -->
+          
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Código Paciente</th>
+                <th scope="col">D.N.I</th>
+                <th scope="col">Apellido y Nombre</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for paciente in datosPaciente %}
+                <tr>
+                  <td>{{ paciente.cod_pac }}</td>
+                  <td>{{ paciente.dni }}</td>
+                  <td>{{ paciente.apellido }}, {{ paciente.nombre }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          
+        {% else %}
+
+          <div class="row col-12 justify-content-end mb-2 pr-0">
+            <!-- <button type="button" class="btn btn-success col-md-3">Añadir paciente</button> -->
+            <a class="btn btn-success col-md-3" href="{% url 'agregarPaciente' cod_doc %}">Añadir paciente</a>
+          </div>
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Código Paciente</th>
+                <th scope="col">D.N.I</th>
+                <th scope="col">Apellido y Nombre</th>
+                <th scope="col"> </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for paciente in datosPaciente %}
+                {% if paciente.cod_doc == cod_doc %}
+                  <tr>
+                    <td>{{ paciente.cod_pac }}</td>
+                    <td>{{ paciente.dni }}</td>
+                    <td>{{ paciente.apellido }}, {{ paciente.nombre }}</td>
+                    <td><a class="btn btn-warning" href="{% url 'editarPaciente' paciente.cod_pac %}"> Editar </a></td>
+                    <td><a class="btn btn-danger" href="{% url 'eliminar' paciente.cod_pac cod_doc %}"> Eliminar </a></td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        
+        {% endif %}  
+
+      </div>
+    </body>
+    
+</html>

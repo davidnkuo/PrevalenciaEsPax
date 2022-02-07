@@ -8,13 +8,13 @@
 
     <body class="padre">
         <div class="hijo">
-            {% if form.errors %}
+            {% if errors %}
                 <div class="alert alert-danger" role="alert">
                     Ocurrió un problema al cargar los datos
                 </div>
             {% endif %}
 
-            <h1>Agregar Paciente</h1>
+            <h1>Usuario {{cod_doc}}, paciente {{cod_pac}}</h1>
 
             {% if mensaje %}
                 <div class="alert alert-success" role="alert">

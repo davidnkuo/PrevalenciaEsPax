@@ -12,6 +12,12 @@
                 La información del paciente se ha guardado satisfactoriamente
             </div>
 
+            {% if hay_vacios %}
+            <div class="alert alert-success" role="alert">
+                Quedaron campos vacíos
+            </div>
+            {% endif %}
+
             <div>
                 <div class="row col-12 justify-content-end mb-5">
                     <a class="btn btn-primary col-md-2" href="{% url 'agregarPaciente' cod_doc %}"> Guardar otro paciente </a>

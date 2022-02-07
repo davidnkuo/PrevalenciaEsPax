@@ -8,13 +8,13 @@
 
     <body class="padre">
         <div class="hijo">
-            {% if form.errors %}
+            {% if error %}
                 <div class="alert alert-danger" role="alert">
                     Ocurrió un problema al cargar los datos
                 </div>
             {% endif %}
 
-            <h1>Agregar Paciente</h1>
+            <h1>Usuario {{cod_doc}}, paciente {{cod_pac}}</h1>
 
             <form action="{% url 'agregarPaciente4' cod_doc cod_pac %}" method="POST">
                 {% csrf_token %}

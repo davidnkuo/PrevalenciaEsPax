@@ -4,9 +4,8 @@
 <html>
 
     {% include 'head.html' %}
-
     <body class="padre">
-      <div class="row col-15 justify-content-end mb-2 pr-0">
+      <div class="row col-12 justify-content-end">
         <a class="btn btn-secondary col-md-1" href="{% url 'login' %}">Salir</a>
       </div>
       <div class ="hijo">
@@ -15,9 +14,8 @@
         {% if cod_doc == 'admin' %}
         
           <div class="row col-12 justify-content-end mb-2 pr-0">
-            <a class="btn btn-secondary col-md-3">Descargar datos</a>
+            <a class="btn btn-secondary col-md-3" href="{% url 'descargar_excel' %}">Descargar datos</a>
           </div>
-          <!-- href="{% url 'descargar_excel' %}" -->
           
           <table class="table table-hover">
             <thead>
@@ -33,7 +31,11 @@
                 <tr>
                   <td>{{ paciente.cod_pac }}</td>
                   <td>{{ paciente.dni }}</td>
-                  <td>{{ paciente.apellido }}, {{ paciente.nombre }}</td>
+                  <td>{{ paciente.apellidoYNombre }}</td>
+                  <td> {% if paciente.hayVacios %}
+                    <div class="btn alert-danger d-flex align-items-center" role="alert">
+                      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                      <div>Hay campos sin completar.</div></div> {% endif %} </td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -53,6 +55,7 @@
                 <th scope="col">D.N.I</th>
                 <th scope="col">Apellido y Nombre</th>
                 <th scope="col"> </th>
+                <th scope="col"> </th>
               </tr>
             </thead>
 
@@ -62,9 +65,12 @@
                   <tr>
                     <td>{{ paciente.cod_pac }}</td>
                     <td>{{ paciente.dni }}</td>
-                    <td>{{ paciente.apellido }}, {{ paciente.nombre }}</td>
+                    <td>{{ paciente.apellidoYNombre }}</td>
                     <td><a class="btn btn-warning" href="{% url 'editarPaciente' paciente.cod_pac %}"> Editar </a></td>
-                    <td><a class="btn btn-danger" href="{% url 'eliminar' paciente.cod_pac cod_doc %}"> Eliminar </a></td>
+                    <td> {% if paciente.hayVacios %}
+                      <div class="btn alert-danger d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                        <div>Hay campos sin completar.</div></div> {% endif %} </td>
                   </tr>
                 {% endif %}
               {% endfor %}
@@ -75,5 +81,7 @@
 
       </div>
     </body>
-    
+
+  {% include 'footer.html' %}
+  
 </html>
